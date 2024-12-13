@@ -28,7 +28,7 @@ import {
 import { CanvasRenderer } from 'echarts/renderers'
 import { useTemperatureStore } from '@/stores/temperature'
 import type { EChartsOption, SeriesOption } from 'echarts'
-import type { DefaultLabelFormatterCallbackParams } from 'echarts/types/dist/shared'
+import type { TooltipComponentFormatterCallback } from 'echarts/types/dist/shared'
 import { Loading } from '@element-plus/icons-vue'
 
 // 注册必要的组件
@@ -53,7 +53,7 @@ const chartOption = computed<EChartsOption>(() => ({
   },
   tooltip: {
     trigger: 'axis',
-    formatter: (params: DefaultLabelFormatterCallbackParams | DefaultLabelFormatterCallbackParams[]) => {
+    formatter: ((params) => {
       if (!Array.isArray(params)) {
         return ''
       }
@@ -65,7 +65,7 @@ const chartOption = computed<EChartsOption>(() => ({
         }
       })
       return result
-    }
+    }) as TooltipComponentFormatterCallback
   },
   legend: {
     data: temperatureStore.allSeries.map(series => series.name),
