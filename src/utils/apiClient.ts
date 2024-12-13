@@ -2,12 +2,15 @@ import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
 import { CONFIG } from '@/config/constants'
 import type { ApiResponse } from '@/types'
 
+const baseURL = import.meta.env.VITE_API_BASE_URL
+
 export class ApiClient {
   private static instance: ApiClient
   private axiosInstance: AxiosInstance
 
   private constructor() {
     this.axiosInstance = axios.create({
+      baseURL,
       timeout: 10000,
       headers: {
         'Accept': 'application/json, text/javascript, */*; q=0.01',

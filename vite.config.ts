@@ -16,7 +16,7 @@ export default defineConfig({
             resolvers: [ElementPlusResolver()],
         }),
     ],
-    base: './',
+    base: process.env.GITHUB_ACTIONS ? '/Temperature-Tracker/' : '/',
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "./src"), //把 src 的别名设置为 @
