@@ -27,7 +27,8 @@ import {
 } from 'echarts/components'
 import { CanvasRenderer } from 'echarts/renderers'
 import { useTemperatureStore } from '@/stores/temperature'
-import type { EChartsOption, SeriesOption, CallbackDataParams } from 'echarts'
+import type { EChartsOption, SeriesOption } from 'echarts'
+import type { DefaultLabelFormatterCallbackParams } from 'echarts/types/dist/shared'
 import { Loading } from '@element-plus/icons-vue'
 
 // 注册必要的组件
@@ -52,14 +53,14 @@ const chartOption = computed<EChartsOption>(() => ({
   },
   tooltip: {
     trigger: 'axis',
-    formatter: (params: CallbackDataParams | CallbackDataParams[]) => {
+    formatter: (params: DefaultLabelFormatterCallbackParams | DefaultLabelFormatterCallbackParams[]) => {
       if (!Array.isArray(params)) {
         return ''
       }
       const date = params[0].axisValue
       let result = `${date}<br/>`
       params.forEach((series) => {
-        if (series.value !== null) {
+        if (series.value != null) {
           result += `${series.seriesName}: ${series.value}°C<br/>`
         }
       })
