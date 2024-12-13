@@ -222,29 +222,3 @@ npm run dev
 npm run build
 ```
 
-### 注意事项
-
-1. 本地开发和生产环境的区别：
-   - 本地开发使用 Vite 代理处理跨域
-   - 生产环境需要确保 API 支持跨域请求
-
-2. 环境变量：
-   - 本地开发：使用 .env.development
-   - 生产环境：使用 .env.production
-
-3. 路径配置：
-   - 本地开发：base = '/'
-   - GitHub Pages：base = '/TemperatureTracker/'
-
-4. API 请求：
-   - 本地开发：'/weather-api/Pc/GetHistory'
-   - 生产环境：'https://tianqi.2345.com/Pc/GetHistory'
-
-5. 跨域处理：
-   - 开发环境：使用 Vite 的代理配置
-   - 生产环境：使用 CORS 代理服务或直接请求目标 API
-
-
-## License
-
-[MIT](LICENSE)

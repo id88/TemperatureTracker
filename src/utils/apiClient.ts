@@ -4,6 +4,14 @@ import type { ApiResponse } from '@/types'
 
 const baseURL = import.meta.env.VITE_API_BASE_URL
 
+// 判断当前环境
+if (import.meta.env.DEV) {
+    console.log('开发环境')
+  } else if (import.meta.env.PROD) {
+  console.log('生产环境')
+}
+console.log('当前 API 地址:', baseURL)
+
 export class ApiClient {
   private static instance: ApiClient
   private axiosInstance: AxiosInstance
