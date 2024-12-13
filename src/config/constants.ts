@@ -4,7 +4,7 @@ export const CONFIG = {
   CHART_HEIGHT: 600,
   DATE_FORMAT: 'YYYY-MM-DD',
   CACHE_PREFIX: 'weather_',
-  API_BASE_URL: '/weather-api'
+  API_BASE_URL: import.meta.env.VITE_API_BASE_URL
 } as const
 
 export const MESSAGE = {

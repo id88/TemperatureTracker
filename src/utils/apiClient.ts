@@ -1,5 +1,4 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
-import { CONFIG } from '@/config/constants'
 import type { ApiResponse } from '@/types'
 
 const baseURL = import.meta.env.VITE_API_BASE_URL
@@ -21,21 +20,10 @@ export class ApiClient {
       baseURL,
       timeout: 10000,
       headers: {
-        'Accept': 'application/json, text/javascript, */*; q=0.01',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'X-Requested-With': 'XMLHttpRequest'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       }
     })
-
-    // 请求拦截器
-    this.axiosInstance.interceptors.request.use(
-      config => {
-        // 添加基础URL
-        config.baseURL = CONFIG.API_BASE_URL
-        return config
-      },
-      error => Promise.reject(error)
-    )
 
     // 响应拦截器
     this.axiosInstance.interceptors.response.use(
