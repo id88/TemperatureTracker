@@ -235,7 +235,7 @@ const handleRegionNames = (config: ExtendedLineConfig, names: string[]) => {
 }
 
 // 处理颜色变化
-const handleColorChange = (config: ExtendedLineConfig, color: string) => {
+const handleColorChange = (config: ExtendedLineConfig, color: string): void => {
   temperatureStore.updateSeriesColor(config.id, color)
 }
 </script>

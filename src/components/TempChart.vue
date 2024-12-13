@@ -52,11 +52,11 @@ const chartOption = computed<EChartsOption>(() => ({
   },
   tooltip: {
     trigger: 'axis',
-    formatter: (params: any) => {
+    formatter: (params: any[]) => {
       const date = params[0].axisValue
       let result = `${date}<br/>`
-      params.forEach((param: any) => {
-        result += `${param.seriesName}: ${param.value}°C<br/>`
+      params.forEach((series: any) => {
+        result += `${series.seriesName}: ${series.value}°C<br/>`
       })
       return result
     }

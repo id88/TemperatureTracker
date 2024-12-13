@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { getWeatherData } from '@/utils/weatherApi'
-import type { TemperatureData } from '@/types'
+import type { TemperatureData, ChartSeries } from '@/types'
 
 interface TemperatureState {
   temperatureData: {
@@ -34,12 +34,12 @@ export const useTemperatureStore = defineStore('temperature', {
       return Array.from(allDates).sort()
     },
 
-    allSeries() {
+    allSeries(): ChartSeries[] {
       return this.series.map(series => ({
         name: series.name,
-        type: 'line' as const,
+        type: 'line',
         data: this.dates.map(date => {
-          const dataPoint = series.data.find(d => d.date === date)
+          const dataPoint = series.data.find((d: TemperatureData) => d.date === date)
           return dataPoint ? dataPoint[series.type] : null
         }),
         itemStyle: {

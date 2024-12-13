@@ -1,14 +1,14 @@
 import { api } from './apiClient'
 import { CacheManager } from './cacheUtils'
 import { CONFIG } from '@/config/constants'
-import type { TemperatureData, WeatherParams, ApiResponse } from '@/types'
+import type { TemperatureData, WeatherParams } from '@/types'
 
 interface WeatherResponse {
   status: number
   msg: string
   data: {
     html: string
-  } | string
+  }
 }
 
 export async function fetchWeatherHistory(params: WeatherParams): Promise<TemperatureData[]> {
