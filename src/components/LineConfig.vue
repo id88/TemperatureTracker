@@ -29,7 +29,7 @@
         <template #default="{ row }">
           <el-color-picker 
             v-model="row.color" 
-            @change="(event) => handleColorChange(row, event)"
+            @change="(val: string) => handleColorChange(row, val)"
           />
         </template>
       </el-table-column>
@@ -234,15 +234,10 @@ const handleRegionNames = (config: ExtendedLineConfig, names: string[]) => {
   config.regionNames = names
 }
 
-// 在 script 标签下添加类型定义
-interface ColorChangeEvent {
-  color: string
-}
-
 // 处理颜色变化
-const handleColorChange = (config: ExtendedLineConfig, event: ColorChangeEvent): void => {
-  if (event.color) {
-    temperatureStore.updateSeriesColor(config.id, event.color)
+const handleColorChange = (config: ExtendedLineConfig, color: string): void => {
+  if (color) {
+    temperatureStore.updateSeriesColor(config.id, color)
   }
 }
 </script>
