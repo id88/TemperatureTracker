@@ -7,9 +7,20 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    DateRangePicker: typeof import('./src/components/DateRangePicker.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
+    ElCascader: typeof import('element-plus/es')['ElCascader']
+    ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
+    ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElOption: typeof import('element-plus/es')['ElOption']
     ElRow: typeof import('element-plus/es')['ElRow']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    ElSelect: typeof import('element-plus/es')['ElSelect']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    LineConfig: typeof import('./src/components/LineConfig.vue')['default']
+    RegionSelector: typeof import('./src/components/RegionSelector.vue')['default']
+    TempChart: typeof import('./src/components/TempChart.vue')['default']
   }
 }
