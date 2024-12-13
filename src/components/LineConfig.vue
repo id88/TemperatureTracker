@@ -63,7 +63,7 @@ import { useTemperatureStore } from '@/stores/temperature'
 import RegionSelector from './RegionSelector.vue'
 import DateRangePicker from './DateRangePicker.vue'
 import { v4 as uuidv4 } from 'uuid'
-import type { LineConfig } from '@/types/temperature'
+import type { LineConfig, TemperatureData } from '@/types/temperature'
 import { ElMessage } from 'element-plus'
 
 const temperatureStore = useTemperatureStore()
@@ -236,7 +236,6 @@ const handleRegionNames = (config: ExtendedLineConfig, names: string[]) => {
 
 // 处理颜色变化
 const handleColorChange = (config: ExtendedLineConfig, color: string) => {
-  // 更新图表中对应折线的颜色
   temperatureStore.updateSeriesColor(config.id, color)
 }
 </script>

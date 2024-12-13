@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { getWeatherData } from '@/utils/weatherApi'
-import type { TemperatureData } from '@/types/temperature'
+import type { TemperatureData } from '@/types'
 
 interface TemperatureState {
   temperatureData: {
@@ -26,19 +26,19 @@ export const useTemperatureStore = defineStore('temperature', {
   }),
 
   getters: {
-    dates: (state) => {
+    dates(): string[] {
       const allDates = new Set<string>()
-      state.series.forEach(series => {
+      this.series.forEach(series => {
         series.data.forEach(item => allDates.add(item.date))
       })
       return Array.from(allDates).sort()
     },
 
-    allSeries: (state) => {
-      return state.series.map(series => ({
+    allSeries() {
+      return this.series.map(series => ({
         name: series.name,
-        type: 'line',
-        data: state.dates.map(date => {
+        type: 'line' as const,
+        data: this.dates.map(date => {
           const dataPoint = series.data.find(d => d.date === date)
           return dataPoint ? dataPoint[series.type] : null
         }),

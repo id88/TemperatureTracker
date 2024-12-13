@@ -39,7 +39,7 @@ class RegionDataParser {
       const isDirectCity = this.isDirectCity(provinceCode, cityString)
       
       if (isDirectCity) {
-        const { code, letter, name } = this.parseCityString(cityString)
+        const { letter, name } = this.parseLetterName(cityString.split('-')[1])
         cities[provinceCode] = [{
           code: provinceCode,
           letter,

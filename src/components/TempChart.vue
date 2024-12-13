@@ -27,7 +27,7 @@ import {
 } from 'echarts/components'
 import { CanvasRenderer } from 'echarts/renderers'
 import { useTemperatureStore } from '@/stores/temperature'
-import type { EChartsOption } from 'echarts'
+import type { EChartsOption, SeriesOption } from 'echarts'
 import { Loading } from '@element-plus/icons-vue'
 
 // 注册必要的组件
@@ -93,7 +93,7 @@ const chartOption = computed<EChartsOption>(() => ({
       end: 100
     }
   ],
-  series: temperatureStore.allSeries
+  series: temperatureStore.allSeries as SeriesOption[]
 }))
 </script>
 
