@@ -234,7 +234,7 @@ npm run build
 
 3. 路径配置：
    - 本地开发：base = '/'
-   - GitHub Pages：base = '/Temperature-Tracker/'
+   - GitHub Pages：base = '/TemperatureTracker/'
 
 4. API 请求：
    - 本地开发：'/weather-api/Pc/GetHistory'
