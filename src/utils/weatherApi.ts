@@ -8,6 +8,8 @@ interface WeatherResponse {
   msg: string
   data: {
     html: string
+  } | {
+    [key: string]: string
   }
 }
 
@@ -31,7 +33,9 @@ export async function fetchWeatherHistory(params: WeatherParams): Promise<Temper
     }
 
     // 处理 HTML 数据
-    const htmlContent = response.data.html || response.data
+    const htmlContent = typeof response.data === 'object' && 'html' in response.data 
+      ? response.data.html 
+      : String(response.data)
     if (typeof htmlContent === 'string') {
       if (htmlContent.includes('暂无')) {
         console.log(`No data available for ${params.year}-${params.month}`)
