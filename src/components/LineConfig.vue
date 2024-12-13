@@ -1,54 +1,56 @@
 <template>
   <div class="line-config">
-    <el-table :data="configs" style="width: 100%">
-      <el-table-column label="地区选择" width="340">
-        <template #default="{ row }">
-          <RegionSelector 
-            v-model="row.region" 
-            @region-names="names => handleRegionNames(row, names)"
-          />
-        </template>
-      </el-table-column>
-
-      <el-table-column label="日期范围" width="380">
-        <template #default="{ row }">
-          <DateRangePicker v-model="row.dateRange" />
-        </template>
-      </el-table-column>
-
-      <el-table-column label="类别" width="140">
-        <template #default="{ row }">
-          <el-select v-model="row.type" placeholder="选择类别">
-            <el-option label="最高气温" value="high" />
-            <el-option label="最低气温" value="low" />
-          </el-select>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="颜色" width="80">
-        <template #default="{ row }">
-          <el-color-picker 
-            v-model="row.color" 
-            @change="(val: string) => handleColorChange(row, val)"
-          />
-        </template>
-      </el-table-column>
-
-      <el-table-column label="操作" width="180">
-        <template #default="{ row }">
-          <el-button-group>
-            <el-button :icon="DocumentCopy" @click="copyConfig(row)" />
-            <el-button :icon="Delete" @click="deleteConfig(row)" />
-            <el-button 
-              :icon="Download" 
-              :loading="row.loading"
-              :disabled="!isConfigComplete(row)"
-              @click="fetchData(row)"
+    <div class="table-container">
+      <el-table :data="configs" class="config-table">
+        <el-table-column label="地区选择" width="340">
+          <template #default="{ row }">
+            <RegionSelector 
+              v-model="row.region" 
+              @region-names="names => handleRegionNames(row, names)"
             />
-          </el-button-group>
-        </template>
-      </el-table-column>
-    </el-table>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="日期范围" width="380">
+          <template #default="{ row }">
+            <DateRangePicker v-model="row.dateRange" />
+          </template>
+        </el-table-column>
+
+        <el-table-column label="类别" width="140">
+          <template #default="{ row }">
+            <el-select v-model="row.type" placeholder="选择类别">
+              <el-option label="最高气温" value="high" />
+              <el-option label="最低气温" value="low" />
+            </el-select>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="颜色" width="80">
+          <template #default="{ row }">
+            <el-color-picker 
+              v-model="row.color" 
+              @change="(val: string) => handleColorChange(row, val)"
+            />
+          </template>
+        </el-table-column>
+
+        <el-table-column label="操作" width="180">
+          <template #default="{ row }">
+            <el-button-group>
+              <el-button :icon="DocumentCopy" @click="copyConfig(row)" />
+              <el-button :icon="Delete" @click="deleteConfig(row)" />
+              <el-button 
+                :icon="Download" 
+                :loading="row.loading"
+                :disabled="!isConfigComplete(row)"
+                @click="fetchData(row)"
+              />
+            </el-button-group>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
 
     <div class="add-button">
       <el-button type="primary" :icon="Plus" @click="addConfig">添加新配置</el-button>
@@ -244,10 +246,35 @@ const handleColorChange = (config: ExtendedLineConfig, color: string): void => {
 
 <style scoped>
 .line-config {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
   padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
 }
+
+.table-container {
+  display: flex;
+  justify-content: center;
+}
+
+.config-table {
+  width: 100%;
+  max-width: 1120px;  /* 给表格设置一个合适的最大宽度 */
+  margin: 0 auto;     /* 表格居中 */
+}
+
 .add-button {
   margin-top: 20px;
   text-align: center;
+}
+
+/* 确保表格列的宽度合理分布 */
+:deep(.el-table) {
+  --el-table-border-color: var(--el-border-color-lighter);
+  --el-table-header-bg-color: var(--el-fill-color-light);
+  --el-table-row-hover-bg-color: var(--el-fill-color);
 }
 </style> 

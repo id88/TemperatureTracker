@@ -107,7 +107,7 @@ const chartOption = computed<EChartsOption>(() => ({
 .temp-chart {
   position: relative;
   width: 100%;
-  height: 600px;
+  height: 500px;
 }
 
 .chart {
