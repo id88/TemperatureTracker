@@ -2,6 +2,8 @@
 
 一个用于展示不同地区历史气温趋势的 Web 应用。
 
+![screenshot](screenshot.gif)
+
 ## 功能特性
 
 - 三级联动地区选择
@@ -58,59 +60,6 @@ src/
 
 ## 核心功能实现
 
-### 1. 地区数据管理
-
-地区数据使用三级联动结构，支持直辖市和普通城市的不同处理逻辑：
-
-```typescript
-// 基础区域信息
-interface BaseRegion {
-  code: string
-  letter: string
-  name: string
-}
-
-// 区县信息
-interface DistrictData extends BaseRegion {
-  cityCode: string
-}
-
-// 城市信息
-interface CityData extends BaseRegion {
-  districts: DistrictData[]
-}
-
-// 省份信息
-interface ProvinceData extends BaseRegion {
-  children?: CityData[]
-}
-```
-
-### 2. 温度数据获取
-
-通过 `weatherApi.ts` 实现数据获取、解析和缓存：
-
-```typescript
-// 温度数据结构
-interface TemperatureData {
-  date: string
-  high: number
-  low: number
-}
-
-// API 参数
-interface WeatherParams {
-  areaId: string
-  areaType: string
-  year: string
-  month: string
-}
-
-// 获取天气数据（包含缓存处理）
-async function getWeatherData(params: WeatherParams): Promise<TemperatureData[]>
-```
-
-### 3. 组件功能
 #### 1. 地区选择 (RegionSelector.vue)
 - 实现省/市/区三级联动选择
 - 特殊处理直辖市显示逻辑，直辖市会显示为"省-市-区"的形式（如：北京-北京-朝阳）特别行政区同样遵循三级结构
@@ -134,79 +83,6 @@ async function getWeatherData(params: WeatherParams): Promise<TemperatureData[]>
 - 支持多折线展示
 - 图例显示
 - 交互功能（数据提示、缩放等）
-
-## 状态管理设计
-
-使用 Pinia 进行状态管理，主要包含两个 store：
-
-### 1. 地区状态 (region.ts)
-```typescript
-interface RegionState {
-  provinces: Record<string, string>
-  cities: Record<string, CityData[]>
-  selectedRegion: {
-    province: string
-    city: string
-    district: string
-  }
-}
-
-// 主要功能
-- getCities(provinceCode: string): CityData[]
-- getDistricts(provinceCode: string, cityCode: string): DistrictData[]
-- getRegionNames(codes: string[]): string[] | null
-- isDirectCity(provinceCode: string): boolean
-```
-
-### 2. 温度数据状态 (temperature.ts)
-```typescript
-interface TemperatureState {
-  temperatureData: {
-    [key: string]: TemperatureData[]
-  }
-  loading: boolean
-  error: string | null
-  series: {
-    id: string
-    name: string
-    type: 'high' | 'low'
-    color: string
-    data: TemperatureData[]
-  }[]
-}
-
-// 主要功能
-- fetchTemperatureData(params: WeatherParams): Promise<TemperatureData[]>
-- addSeries(id: string, name: string, type: 'high' | 'low', color: string, data: TemperatureData[])
-- removeSeries(id: string)
-- updateSeriesColor(id: string, color: string)
-```
-
-
-
-### 3. 数据缓存策略
-
-使用 CacheManager 实现数据缓存管理：
-
-```typescript
-class CacheManager {
-  // 缓存有效期：24小时
-  private static CACHE_EXPIRY = 24 * 60 * 60 * 1000
-
-  // 获取缓存数据
-  static get<T>(prefix: string, ...keys: string[]): T | null
-
-  // 设置缓存数据
-  static set<T>(data: T, prefix: string, ...keys: string[]): void
-
-  // 清除指定缓存
-  static remove(prefix: string, ...keys: string[]): void
-
-  // 清除所有缓存
-  static clear(prefix: string): void
-}
-```
-
 
 
 ## 运行项目
